@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Cadastro de Usuários</title>
+
+    <!-- Principal CSS do Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"/>
+	<style>
+	body {
+	  padding-top: 5rem;
+	}
+	.starter-template {
+	  padding: 3rem 1.5rem;
+	  text-align: center;
+	}
+	
+	</style>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(atual)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Desativado</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+              <a class="dropdown-item" href="#">Item</a>
+              <a class="dropdown-item" href="#">Outro item</a>
+              <a class="dropdown-item" href="#">Algum outro item</a>
+            </div>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Pesquisa" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+        </form>
+      </div>
+    </nav>
+
+<div class="container">
+	<div class="row">
+		<div class="alert alert-danger alert-dismissible fade show" id="msgDanger" role="alert">
+		  <span>Esse usuário já existe no cadastro!</span>
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		    <span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="alert alert-success alert-dismissible fade show" id="msgSuccess" role="alert">
+		  <span>Usuário inserido no cadastro!</span>
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		    <span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+        <div class="alert alert-success alert-dismissible fade show" id="msgApagou" role="alert">
+		  <span>Usuário deletado do cadastro!</span>
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		    <span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="alert alert-danger alert-dismissible fade show" id="msgNaoApagou" role="alert">
+		  <span>Usuário não foi apagado do cadastro!</span>
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		    <span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+	</div>
+	<div class="row">
+
+		<div class="col-md-6">
+
+		<form action="#" method="GET" id="cadastrar" onSubmit="return false;" >
+
+
+		 <div class="form-group">
+		    <label for="nome">Nome</label>
+		    <input type="text" class="form-control" id="nome" name="nome" aria-describedby="nome" placeholder="Seu nome">
+		  </div>
+
+		 <div class="form-group">
+		    <label for="end">Endereço</label>
+		    <input type="text" class="form-control" id="end" name="end" aria-describedby="end" placeholder="Seu endereço">
+		  </div>
+		<div class="form-group">
+		    <label for="cid">Cidade</label>
+		    <input type="text" class="form-control" id="cid" name="cid" aria-describedby="cid" placeholder="Sua cidade">
+		  </div>
+		<div class="form-group">
+		    <label for="est">Estado</label>
+		    <input type="text" class="form-control" id="est" name="est" aria-describedby="est" placeholder="Seu estado">
+		  </div>
+		<p>
+		<div class="form-group">
+		    <label for="cpf">CPF</label>
+		    <input type="text" class="form-control" id="cpf" name="cpf" aria-describedby="cpf" placeholder="Seu CPF">
+		  </div>
+		<p>
+			<button class="btn btn-primary" onclick="inserir()" >Inserir</button>
+			<button class="btn btn-danger" onclick="deletar()" >Deletar</button>
+		</p>
+		</form>
+		</div>
+		<div class="col-md-6">
+
+			<table class="table">
+			  <thead>
+			    <tr>
+			      <th scope="col">Nome</th>
+			      <th scope="col">Endereço</th>
+			      <th scope="col">Cidade</th>
+			      <th scope="col">Estado</th>
+			      <th scope="col">CPF</th>
+			    </tr>
+			  </thead>
+			  <tbody id="dados">
+			   
+			  </tbody>
+			</table>
+
+		</div>
+	</div>
+</div>
+
+    <!-- Principal JavaScript do Bootstrap
+    ================================================== -->
+    <!-- Foi colocado no final para a página carregar mais rápido -->
+    	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script>
+const cadastro = []
+const meuAlertDanger  = document.getElementById("msgDanger");
+const meuAlertSuccess = document.getElementById("msgSuccess");
+const meuNaoApagou  = document.getElementById("msgNaoApagou");
+const meuApagou = document.getElementById("msgApagou");
+hide(meuAlertDanger);
+hide(meuAlertSuccess);
+hide(meuApagou);
+hide(meuNaoApagou);
+
+function inserir(){
+	hide(meuAlertDanger);
+	hide(meuAlertSuccess);
+
+	const pessoa = {}
+	const meuForm = document.getElementById("cadastrar");
+	const nome = document.getElementById("nome").value;
+	const end  = document.getElementById("end").value;
+	const cid  = document.getElementById("cid").value;
+	const est  = document.getElementById("est").value;
+	const cpf  = document.getElementById("cpf").value;
+	pessoa.nome = nome;
+	pessoa.end  = end;
+	pessoa.cid  = cid;
+	pessoa.est  = est;
+	pessoa.cpf  = cpf;
+	if ( procurar(pessoa) === true ){
+		show(meuAlertDanger);
+		hide(meuAlertSuccess);
+	} else {
+		cadastro.push(pessoa);
+		hide(meuAlertDanger);
+		show(meuAlertSuccess);
+	}
+	meuForm.reset();
+	mostrar();
+}
+
+function mostrar(){
+	let tam = cadastro.length;
+	let dados = '';
+	for(let i=0; i<tam ; i++){
+		dados += '<tr><td>'+cadastro[i].nome+'</td><td>'+cadastro[i].end+'</td><td>'+cadastro[i].cid+'</td><td>'+cadastro[i].est+'</td><td>'+cadastro[i].cpf+'</td></tr>';
+	} 
+	document.getElementById('dados').innerHTML = dados;
+}
+
+
+function deletar(){
+    hide(meuAlertDanger);
+	hide(meuAlertSuccess);
+    let deleta = prompt('Qual CPF você deseja deletar?');
+	let tam = cadastro.length;
+    let apagou = false;
+    for( let i = 0; i < tam; i++){ 
+       if ( cadastro[i].cpf === deleta) {
+         cadastro.splice(i, 1);
+         apagou = true;
+       }
+    }
+    if (apagou){
+        show(meuApagou);
+        hide(meuNaoApagou);
+    } else {
+        show(meuNaoApagou);
+        hide(meuApagou);
+    }
+    mostrar();
+}
+
+
+function procurar(a){
+    let tam = cadastro.length;
+    while (tam--) {
+       if (cadastro[tam].cpf === a.cpf) {
+	console.log('EXISTE');
+           return true;
+       }
+    }
+    return false;
+}
+
+function show (elem) {	// "mostra" um elemento que estava escondido
+	elem.style.display = 'block';
+}
+
+function hide (elem) {  // "Esconde" um elemento que estava aparecendo
+	elem.style.display = 'none';
+}
+
+
+</script>
+  </body>
+</html>
+
